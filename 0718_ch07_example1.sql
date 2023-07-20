@@ -1,0 +1,162 @@
+USE sqldb;
+
+SET @myVar1 = 5;
+SELECT @myVar1 AS VAR1;
+
+SET @myVar2 = 3;
+SET @myVar3 = 4.3;
+SELECT @myVar2 + @myVar3 AS 'VAR2+VAR3';
+
+SET @myVar4 = '가수이름 :';
+SELECT @myVar4 , name FROM usertbl WHERE height > 180;
+
+SET @myVar1 = 3;
+PREPARE myQuery
+	FROM 'SELECT name, height FROM usertbl ORDER BY height LIMIT ?';
+EXECUTE myQuery USING @myVar1;
+
+SELECT CAST(AVG(amount) AS SIGNED INTEGER) AS '평균구매개수' FROM buytbl;
+SELECT CONVERT(AVG(amount) , SIGNED INTEGER) AS '평균구매개수' FROM buytbl;
+
+SELECT CAST('2020/12/12' AS DATE);
+SELECT * FROM buytbl;
+SELECT 
+	num, 
+    CONCAT(CAST(price AS char(10)),'x',CAST(amount AS CHAR(4)),'=') AS '단가x수량', 
+    price*amount AS '구매액' 
+    FROM buytbl;
+
+SELECT '100'+'200';
+SELECT CONCAT(100,'200');
+SELECT 1 < '2mega';
+SELECT 0 = 'mega2';
+
+SELECT IF(100<200, '참', '거짓');
+SELECT IFNULL(NULL , '널입니다');
+SELECT NULLIF(200,100);
+
+SELECT 
+	CASE 10
+		WHEN 1 THEN '일'
+		WHEN 5 THEN '오'
+		WHEN 10 THEN '십'
+		ELSE '모름'
+	END
+    AS 'case연습';
+    
+SELECT ASCII(' ');
+SELECT CHAR(65);
+
+SELECT BIT_LENGTH('안녕');
+SELECT CHAR_LENGTH('안녕');
+SELECT LENGTH('안녕');
+
+SELECT CONCAT('2023','/','7','/','18');
+SELECT CONCAT_WS('/','2023','7','18');
+
+SELECT ELT(3, '하나', '둘', '셋');
+SELECT FIELD('셋', '하나', '둘', '셋');
+SELECT FIND_IN_SET('셋', '하나,둘,셋');
+SELECT INSTR('하나둘셋', '둘');
+SELECT LOCATE('둘', '하나둘셋');
+
+SELECT FORMAT(123456.123456, 4);
+SELECT BIN(65), OCT(65), HEX(65);
+
+SELECT INSERT('abcdefghijklmn', 3, 4, '@@@@');
+SELECT INSERT('abcdefghijklmn', 3, 2, '@@@@');
+SELECT LEFT('abcdefghijklmn', 3);
+SELECT RIGHT('abcdefghijklmn', 3);
+
+SELECT LOWER('ABCDEFGhijklmnop');
+SELECT UPPER('ABCDEFGhijklmnop');
+
+SELECT LPAD('이것이', 6, '##');
+SELECT RPAD('이것이', 4, '##');
+
+SELECT LTRIM('    이것이   ');
+SELECT RTRIM('    이것이   ');
+SELECT TRIM('    이것이   ');
+
+SELECT REPEAT('_', 30);
+SELECT REPLACE('이것이 MySQL이다', '이것이', 'This is'); 
+SELECT REVERSE('MySQL이다');
+SELECT CONCAT('이것이', SPACE(10), 'MySQL이다');
+SELECT CONCAT('이것이', REPEAT(' ', 10), 'MySQL이다');
+SELECT SUBSTRING('이것이 MySQL이다', 5, 7);
+SELECT SUBSTRING_INDEX('cafe.naver.co.kr', '.', -2);
+
+SELECT ABS(30), ABS(-30);
+
+SELECT CEILING(4.7);
+SELECT FLOOR(4.7);
+SELECT ROUND(4.7);
+
+SELECT CONV('AA', 16, 10);
+
+SELECT DEGREES(PI());
+SELECT RADIANS(180);
+
+SELECT MOD(157, 10);
+SELECT 60%20;
+
+SELECT POW(2,3);
+SELECT SQRT(4);
+
+SELECT RAND();
+SELECT FLOOR(1+ RAND()*(7-1));
+
+SELECT SIGN(30), SIGN(-30);
+
+SELECT TRUNCATE(12345.12345, 2);
+
+
+SELECT ADDDATE('2023-07-18', Interval 31 day);
+SELECT SUBDATE('2023-07-18', Interval 31 day);
+
+SELECT ADDTIME('2023-07-18 16:30:00', '1:30:00');
+SELECT SUBTIME('2023-07-18 16:30:00', '1:30:00');
+
+SELECT CURDATE(), CURTIME();
+SELECT NOW();
+SELECT DATE(NOW());
+SELECT TIME(NOW());
+
+SELECT YEAR(CURDATE());
+SELECT MONTH(CURDATE());
+SELECT DAY(CURDATE());
+
+SELECT HOUR(CURTIME());
+SELECT MINUTE(CURTIME());
+SELECT SECOND(CURTIME());
+
+SELECT DATEDIFF('2001-06-01', NOW());
+SELECT TIMEDIFF('17:45:00', CURTIME());
+
+SELECT LAST_DAY('2023-07-01');
+SELECT MAKEDATE('2001-06-01', 10000);
+SELECT MAKEDATE('2023', 100);
+
+SELECT MAKETIME(12,11,10);
+SELECT QUARTER('2023-07-18');
+SELECT TIME_TO_SEC('17:45:00');
+
+
+
+SELECT DATABASE();
+SELECT CURRENT_USER();
+
+SELECT * FROM usertbl;
+SELECT FOUND_ROWS();
+SELECT COUNT(*) FROM usertbl;
+
+USE sqldb;
+SELECT * FROM buytbl;
+UPDATE buytbl SET price = price*2;
+SELECT ROW_COUNT();
+
+
+SELECT VERSION();
+SELECT SLEEP(5);
+
+

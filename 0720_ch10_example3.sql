@@ -1,0 +1,57 @@
+USE sqlDB;
+
+SET GLOBAL log_bin_trust_function_creators = 1;
+
+DROP FUNCTION IF EXISTS userFunc;
+DELIMITER $$
+CREATE FUNCTION userFunc(value1 INT, value2 INT) RETURNS INT
+BEGIN
+	RETURN value1 + value2;
+END $$
+DELIMITER ;
+
+SELECT userFunc(100,200);
+
+-- -- -- 
+
+DROP FUNCTION IF EXISTS getAgeFunc;
+DELIMITER $$
+CREATE FUNCTION getAgeFunc(bYear INT) RETURNS INT
+BEGIN
+	DECLARE age INT;
+    SET age = Year(CURDATE()) - bYear;
+	RETURN age;
+END $$
+DELIMITER ;
+
+SELECT getAgeFunc(1979) INTO @age1979;
+SELECT getAgeFunc(2000) INTO @age2000;
+SELECT CONCAT('1979년생과 2000년생의 나이차 :', @age1979-@age2000);
+
+SELECT userID, name, getAgeFunc(birthYear) AS '만나이' FROM userTBL;
+SHOW CREATE FUNCTION getAgeFunc;
+SELECT * FROM INFORMATION_SCHEMA.ROUTINES;
+SELECT * FROM INFORMATION_SCHEMA.PARAMETERS;
+SELECT * FROM INFORMATION_SCHEMA.TABLES ;
+
+DROP FUNCTION getAgeFunc;
+
+--
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
